@@ -57,7 +57,7 @@
     </div>
 
     <script>
-      window.addEventListener("keydown", function (e) {
+      function playSound(e) {
         const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
         const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
         if (!audio) return; // stop the function from running all together
@@ -65,7 +65,7 @@
         audio.play();
 
         key.classList.add("playing");
-      });
+      }
 
       function removeTransition(e) {
         if (e.propertyName !== "transform") return; //skip it if it's not a transform
@@ -76,6 +76,7 @@
       keys.forEach((key) =>
         key.addEventListener("transitionend", removeTransition)
       );
+      window.addEventListener("keydown", playSound);
     </script>
   </body>
 </html>
