@@ -1,6 +1,7 @@
 //make gugudan and html tag with js
 let number1 = Math.floor(Math.random() * 10);
 let number2 = Math.floor(Math.random() * 10);
+let answer = number1 * number2;
 
 const word = document.createElement("div");
 document.body.append(word);
@@ -20,17 +21,19 @@ button.textContent = "Enter";
 const result = document.createElement("div");
 document.body.append(result);
 
-form.addEventListener("click", function (e) {
-  //   e.preventDefault();
-
-  let answer = number1 * number2;
-  word.textContent = `${number1} times ${number2}?`;
-
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+  //   number1 = Math.floor(Math.random() * 10); 여기에 먼저 넣으면 맞았을 때 새로운 문제를 내는게 아니라 무조건 새 문제를 낸다.
+  //   number2 = Math.floor(Math.random() * 10);
+  //   answer = number1 * number2;
+  //   word.textContent = `${number1} times ${number2}?`;
   console.log(answer, input.value);
   if (answer === Number(input.value)) {
     result.textContent = "Correct!";
-    // let number1 = Math.floor(Math.random() * 10);
-    // let number2 = Math.floor(Math.random() * 10);
+    number1 = Math.floor(Math.random() * 10);
+    number2 = Math.floor(Math.random() * 10);
+    answer = number1 * number2;
+    word.textContent = `${number1} times ${number2}?`;
     input.value = "";
     input.focus();
   } else {
