@@ -15,12 +15,16 @@ let result = document.createElement("div");
 document.body.append(result);
 
 //make word play with addEventListener
-button.addEventListener("click", function callbackFunc() {
+button.addEventListener("click", function callbackFunc(e) {
+  e.preventDefault();
   if (word.textContent[word.textContent.length - 1] === input.value[0]) {
     result.textContent = "Correct!";
     word.textContent = input.value;
+    input.focus();
   } else {
     result.textContent = "Wrong!";
+    input.value = "";
+    input.focus();
   }
 });
 
