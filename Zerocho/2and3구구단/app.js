@@ -1,6 +1,6 @@
 //make gugudan and html tag with js
-let number1 = Math.floor(Math.random() * 10);
-let number2 = Math.floor(Math.random() * 10);
+let number1 = Math.ceil(Math.random() * 9);
+let number2 = Math.ceil(Math.random() * 9);
 let answer = number1 * number2;
 
 const word = document.createElement("div");
@@ -30,8 +30,8 @@ form.addEventListener("submit", function (e) {
   console.log(answer, input.value);
   if (answer === Number(input.value)) {
     result.textContent = "Correct!";
-    number1 = Math.floor(Math.random() * 10);
-    number2 = Math.floor(Math.random() * 10);
+    number1 = Math.ceil(Math.random() * 9);
+    number2 = Math.ceil(Math.random() * 9);
     answer = number1 * number2;
     word.textContent = `${number1} times ${number2}?`;
     input.value = "";
