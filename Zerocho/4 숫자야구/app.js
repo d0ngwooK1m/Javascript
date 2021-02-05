@@ -1,7 +1,7 @@
 const body = document.body;
 
-let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-let numArr = [];
+let numbers;
+let numArr;
 
 function pickNumber() {
   numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -12,6 +12,7 @@ function pickNumber() {
   }
 }
 
+pickNumber();
 console.log(numArr);
 
 const result = document.createElement("h1");
@@ -38,9 +39,13 @@ form.addEventListener("submit", function asynchronousFunc(e) {
   if (Number(answer) === Number(numArr.join(""))) {
     //답이 맞으면
     result.textContent = "홈런!";
+    input.value = "";
+    wrong = 0;
+    setTimeout(function () {
+      location.reload();
+    }, 5000);
     input.focus();
     pickNumber();
-    wrong = 0;
   } else {
     // 답이 틀리면
     let answerArr = answer.split("");
