@@ -18,7 +18,7 @@ function computerChoice(whereImage) {
   })[0];
 }
 
-setInterval(function () {
+let interval = setInterval(function () {
   if (whereImage === rsp.rock) {
     whereImage = rsp.scissor;
   } else if (whereImage === rsp.scissor) {
@@ -35,8 +35,48 @@ document.querySelectorAll(".btn").forEach(function (btn) {
   //다른 메소드는 for을 이용해서 반복하는 방법도 있는 모양이다.
   //여기서는 querySelectorAll에 forEach(함수)를 넣어서 버튼 마다 함수를 적용
   btn.addEventListener("click", function () {
+    clearInterval(interval);
+    setTimeout(function () {
+      interval = setInterval(function () {
+        if (whereImage === rsp.rock) {
+          whereImage = rsp.scissor;
+        } else if (whereImage === rsp.scissor) {
+          whereImage = rsp.paper;
+        } else {
+          whereImage = rsp.rock;
+        }
+        document.querySelector(
+          "#computer"
+        ).style.background = `url(https://thumb.ac-illust.com/02/028c32e022c0165725eaa79cbeb23e05_w.jpeg) ${whereImage} 0`;
+      }, 100);
+    }, 1000);
     const myChoice = this.textContent;
     console.log(myChoice, computerChoice(whereImage));
     //이벤트 핸들러 안에서 쓴 this는 HTML 요소를 가리킨다. btn의 텍스트 콘텐트를 표시하라는 뜻
+    if (myChoice === "rock") {
+      if (computerChoice(whereImage) === "rock") {
+        console.log("Draw😕");
+      } else if (computerChoice(whereImage) === "scissor") {
+        console.log("You Win😎");
+      } else if (computerChoice(whereImage) === "paper") {
+        console.log("You Lose😭");
+      }
+    } else if (myChoice === "scissor") {
+      if (computerChoice(whereImage) === "rock") {
+        console.log("You Lose😭");
+      } else if (computerChoice(whereImage) === "scissor") {
+        console.log("Draw😕");
+      } else if (computerChoice(whereImage) === "paper") {
+        console.log("You Win😎");
+      }
+    } else if (myChoice === "paper") {
+      if (computerChoice(whereImage) === "rock") {
+        console.log("You Win😎");
+      } else if (computerChoice(whereImage) === "scissor") {
+        console.log("You Lose😭");
+      } else if (computerChoice(whereImage) === "paper") {
+        console.log("Draw😕");
+      }
+    }
   });
 });
