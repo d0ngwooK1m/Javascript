@@ -51,11 +51,13 @@ document.querySelectorAll(".btn").forEach(function (btn) {
       intervalMaker();
     }, 1000);
     const myChoice = this.textContent;
-    if (score[myChoice] - score[computerChoice(whereImage)] === 0) {
+    const myScore = score[myChoice];
+    const computerScore = score[computerChoice(whereImage)];
+    if (myScore - computerScore === 0) {
       console.log("Draw😕");
     } else if (
-      score[myChoice] - score[computerChoice(whereImage)] === 1 ||
-      score[myChoice] - score[computerChoice(whereImage)] === 2
+      [-1, 2].includes(myScore - computerScore)
+      //해당 점수가 or 관계로 포함되어있는지 확인
     ) {
       console.log("You Win😎");
     } else {
