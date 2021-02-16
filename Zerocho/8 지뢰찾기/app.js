@@ -31,6 +31,7 @@ document.querySelector("#exec").addEventListener("click", function () {
         e.preventDefault();
         const trParents = e.currentTarget.parentNode;
         const tbodyParents = e.currentTarget.parentNode.parentNode;
+        //e.target은 현재 이벤트가 일어나고 있는 대상(여기서는 td)를 뜻하고 e.currentTarget은 이벤트가 달리는 대상(여기서는 tbody)를 뜻한다.
         const verNum = Array.prototype.indexOf.call(
           trParents.children,
           e.currentTarget
