@@ -1,6 +1,7 @@
 const tbody = document.querySelector("#table tbody"); //스코프 때문에 그렇다고 한다. 자세한 설명 추가 필요
 const dataSet = []; //스코프
 document.querySelector("#exec").addEventListener("click", function () {
+  tbody.innerHTML = "";
   const horizontal = parseInt(document.querySelector("#hor").value);
   const vertical = parseInt(document.querySelector("#ver").value);
   const mine = parseInt(document.querySelector("#mine").value);
@@ -40,9 +41,21 @@ document.querySelector("#exec").addEventListener("click", function () {
           tbodyParents.children,
           trParents
         ); //Array.prototype 부분은 나중에 설명 배열이 아닌 것들에게 indexOf를 쓸 수 있게 만들어 준다.
-        console.log(trParents, tbodyParents, e.currentTarget, verNum, horNum);
-        e.currentTarget.textContent = "!";
-        dataSet[horNum][verNum] = "!";
+        // console.log(trParents, tbodyParents, e.currentTarget, verNum, horNum);
+        if (
+          e.currentTarget.textContent === "" ||
+          e.currentTarget.textContent === "X"
+        ) {
+          e.currentTarget.textContent = "!";
+        } else if (e.currentTarget.textContent === "!") {
+          e.currentTarget.textContent = "?";
+        } else if (e.currentTarget.textContent === "?") {
+          if (dataSet[horNum][verNum] === 1) {
+            e.currentTarget.textContent = "";
+          } else if (dataSet[horNum][verNum] === "X") {
+            e.currentTarget.textContent = "X";
+          }
+        }
       }); //오른쪽 클릭: contextmenu 깃발, 물음표 기능 추가
       tr.appendChild(td);
     }
@@ -54,12 +67,9 @@ document.querySelector("#exec").addEventListener("click", function () {
     //59
     const verticalWhere = Math.floor(shuffle[k] / 10); //59 나누기 10 버림 답5
     const horizontalWhere = shuffle[k] % 10; //%는 몫으로 나눈 나머지 빼기1 답 8
-    console.log(verticalWhere, horizontalWhere);
     tbody.children[verticalWhere].children[horizontalWhere].textContent = "X";
     dataSet[verticalWhere][horizontalWhere] = "X";
   }
-
-  //   console.log(dataSet);
 });
 
 tbody.querySelectorAll("td").forEach(function (td) {});
