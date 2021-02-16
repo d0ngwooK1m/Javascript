@@ -1,3 +1,5 @@
+const tbody = document.querySelector("#table tbody"); //스코프 때문에 그렇다고 한다. 자세한 설명 추가 필요
+const dataSet = []; //스코프
 document.querySelector("#exec").addEventListener("click", function () {
   const horizontal = parseInt(document.querySelector("#hor").value);
   const vertical = parseInt(document.querySelector("#ver").value);
@@ -18,8 +20,6 @@ document.querySelector("#exec").addEventListener("click", function () {
   } //로또 추첨기 활용 지뢰 위치 랜덤 선정 (피셔 예이츠 셔플)
   console.log(shuffle);
 
-  const dataSet = [];
-  const tbody = document.querySelector("#table tbody");
   for (i = 0; i < vertical; i += 1) {
     const arr = [];
     dataSet.push(arr);
@@ -27,6 +27,22 @@ document.querySelector("#exec").addEventListener("click", function () {
     for (j = 0; j < horizontal; j += 1) {
       arr.push(1);
       const td = document.createElement("td");
+      td.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+        const trParents = e.currentTarget.parentNode;
+        const tbodyParents = e.currentTarget.parentNode.parentNode;
+        const verNum = Array.prototype.indexOf.call(
+          trParents.children,
+          e.currentTarget
+        );
+        const horNum = Array.prototype.indexOf.call(
+          tbodyParents.children,
+          trParents
+        ); //Array.prototype 부분은 나중에 설명 배열이 아닌 것들에게 indexOf를 쓸 수 있게 만들어 준다.
+        console.log(trParents, tbodyParents, e.currentTarget, verNum, horNum);
+        e.currentTarget.textContent = "!";
+        dataSet[horNum][verNum] = "!";
+      }); //오른쪽 클릭: contextmenu 깃발, 물음표 기능 추가
       tr.appendChild(td);
     }
     tbody.appendChild(tr);
@@ -44,3 +60,5 @@ document.querySelector("#exec").addEventListener("click", function () {
 
   //   console.log(dataSet);
 });
+
+tbody.querySelectorAll("td").forEach(function (td) {});
