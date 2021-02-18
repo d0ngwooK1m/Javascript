@@ -57,6 +57,45 @@ document.querySelector("#exec").addEventListener("click", function () {
           }
         }
       }); //오른쪽 클릭: contextmenu 깃발, 물음표 기능 추가
+      td.addEventListener("click", function (e) {
+        //클릭했을 때 주변지뢰 개수
+        const trParents = e.currentTarget.parentNode;
+        const tbodyParents = e.currentTarget.parentNode.parentNode;
+        const verNum = Array.prototype.indexOf.call(
+          trParents.children,
+          e.currentTarget
+        );
+        const horNum = Array.prototype.indexOf.call(
+          tbodyParents.children,
+          trParents
+        );
+        if (dataSet[horNum][verNum] === "X") {
+          e.currentTarget.textContent = "🎇";
+        } else {
+          let around = [
+            dataSet[horNum][verNum - 1],
+            dataSet[horNum][verNum + 1],
+          ];
+          if (dataSet[horNum - 1]) {
+            around = around.concat([
+              // concat은 배열과 배열을 합쳐 새 배열을 만든다.
+              dataSet[horNum - 1][verNum - 1],
+              dataSet[horNum - 1][verNum],
+              dataSet[horNum - 1][verNum + 1],
+            ]);
+          }
+          if (dataSet[horNum + 1]) {
+            around = around.concat(
+              dataSet[horNum + 1][verNum - 1],
+              dataSet[horNum + 1][verNum],
+              dataSet[horNum + 1][verNum + 1]
+            );
+          }
+          e.currentTarget.textContent = around.filter(function (v) {
+            return v === "X";
+          }).length;
+        }
+      });
       tr.appendChild(td);
     }
     tbody.appendChild(tr);
